@@ -1,4 +1,4 @@
-# pip install streamlit prophet openpyxl scikit-learn matplotlib pandas numpy plotly xgboost shap optuna
+# pip install streamlit prophet openpyxl scikit-learn matplotlib pandas numpy
 # RetailPulse - Production Analytics Dashboard with Complete Feature Implementation
 # All 6 Features with Production Metrics & SLAs
 
@@ -6,8 +6,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-import plotly.express as px
 from prophet import Prophet
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans, DBSCAN
@@ -402,11 +400,16 @@ elif menu == "F02: Customer Segmentation (RFM)":
             
             # Visualization
             st.markdown("---")
-            fig = px.scatter(rfm, x='Frequency', y='Monetary', color='Segment',
-                            title="Customer Segmentation (RFM)",
-                            labels={'Frequency': 'Purchase Frequency', 'Monetary': 'Total Spending ($)'},
-                            size='Recency', hover_data=['Customer'])
-            st.plotly_chart(fig, use_container_width=True)
+            st.subheader("Customer Segmentation Visualization")
+            fig, ax = plt.subplots(figsize=(12, 6))
+            scatter = ax.scatter(rfm['Frequency'], rfm['Monetary'], 
+                               c=rfm['Segment'], cmap='viridis', s=100, alpha=0.6, edgecolors='black')
+            ax.set_xlabel("Purchase Frequency", fontsize=11)
+            ax.set_ylabel("Total Spending ($)", fontsize=11)
+            ax.set_title("Customer Segmentation (RFM Analysis)", fontsize=13, fontweight='bold')
+            cbar = plt.colorbar(scatter, ax=ax, label='Segment')
+            plt.tight_layout()
+            st.pyplot(fig)
             
             st.markdown("---")
             st.subheader("Export Segments")
