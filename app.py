@@ -75,7 +75,7 @@ def find_date_column(df):
                     try:
                         pd.to_datetime(df[col].head())
                         return col
-                    except:
+                    except Exception:
                         continue
     
     return None
@@ -123,7 +123,6 @@ def calculate_mape(y_true, y_pred):
 def load_data():
     try:
         if os.path.exists("merged_cleaned_retail_data.xlsx"):
-            # Using nrows as specified in the EDA requirement snippet
             df = pd.read_excel("merged_cleaned_retail_data.xlsx", engine="openpyxl", nrows=15000)
             return df
         else:
@@ -890,7 +889,7 @@ elif menu == "F07: Interactive Analytics & Export":
                         (pd.to_datetime(df_filtered[date_col]).dt.date >= date_range[0]) &
                         (pd.to_datetime(df_filtered[date_col]).dt.date <= date_range[1])
                     ]
-            except:
+            except Exception:
                 pass
     
     st.markdown("---")
@@ -1031,4 +1030,41 @@ elif menu == "Complete Project Roadmap":
 
     ### Phase 4: Demand Forecasting (Time Series)
     * **Objective:** Predict future sales volume to optimize supply chain readiness.
-    * **Actions:** Deployed the Prophet algorithm to forecast 3
+    * **Actions:** Deployed the Prophet algorithm to forecast 30-to-90 day revenue trends with visual confidence intervals.
+
+    ### Phase 5: Churn Prediction (Supervised Learning)
+    * **Objective:** Identify high-value customers at risk of abandoning the platform.
+    * **Actions:** Trained a Random Forest Classifier to detect at-risk profiles based on historical spending cadence.
+
+    ### Phase 6: Inventory Optimization (Prescriptive Analytics)
+    * **Objective:** Recommend specific stock reorder points to minimize holding and ordering costs.
+    * **Actions:** Implemented the Economic Order Quantity (EOQ) formula calculating safety stock and total inventory costs.
+
+    ### Phase 7: Deployment & Interactivity
+    * **Objective:** Democratize AI insights for business users.
+    * **Actions:** Built a Streamlit application featuring dynamic filters, what-if scenario analyses, and automated report exporting.
+    """)
+
+# =================================================================
+# PROJECT SUMMARY
+# =================================================================
+elif menu == "Project Summary":
+    st.markdown('<div class="section-header">Project Summary</div>', unsafe_allow_html=True)
+    st.markdown("""
+    ### RetailPulse: End-to-End Retail Intelligence
+    
+    **Overview:**
+    RetailPulse is an enterprise-grade analytics dashboard designed to transform raw retail transaction data into actionable business intelligence. By combining traditional statistical analysis with advanced machine learning algorithms, the platform provides decision-makers with a comprehensive view of their business operations.
+    
+    **Key Capabilities:**
+    1. **Data Quality Assurance:** Automated cleaning pipelines ensure all downstream models are fed reliable, high-quality data.
+    2. **Customer Intelligence:** RFM segmentation and predictive churn models identify which customers are driving revenue and which are at risk of leaving, enabling proactive retention strategies.
+    3. **Operational Efficiency:** Prophet-driven demand forecasting combined with Economic Order Quantity (EOQ) algorithms helps businesses reduce excess inventory costs while preventing stockouts.
+    4. **Strategic Planning:** Interactive "What-If" scenarios allow leaders to simulate the financial impact of price adjustments, market expansions, and customer growth in real-time.
+    
+    **Business Impact:**
+    By centralizing these insights into a single, interactive platform, RetailPulse reduces the time required for data analysis from days to seconds. It empowers retail managers to optimize inventory costs, increase customer lifetime value, and confidently project future revenue streams.
+    """)
+
+st.markdown("---")
+st.markdown("**RetailPulse v2.0** | 7 Production Features | SLA Monitoring | Enterprise Ready")
