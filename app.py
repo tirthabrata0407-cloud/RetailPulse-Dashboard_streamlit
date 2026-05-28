@@ -162,7 +162,7 @@ menu = st.sidebar.radio(
 st.sidebar.markdown("---")
 st.sidebar.info("7 Production-Grade Features | SLA Monitoring | Enterprise Ready")
 
-# Detect columns
+# Detect columns globally
 date_col = find_date_column(df)
 amount_col = find_numeric_column(df, ['total', 'amount', 'revenue', 'sales'])
 quantity_col = find_numeric_column(df, ['quantity', 'qty'])
@@ -204,7 +204,7 @@ if menu == "Dashboard Overview":
         "F02": {
             "name": "Exploratory Data Analysis (EDA)",
             "description": "Statistical summaries, distributions, and correlation tracking",
-            "metrics": ["Missing Values", "Distributions", "Heatmaps"],
+            "metrics": ["Missing Values", "Distributions", "Heatmaps", "Trend Lines"],
             "status": "Production"
         },
         "F03": {
@@ -352,8 +352,32 @@ elif menu == "F02: Exploratory Data Analysis (EDA)":
     st.subheader("Summary Statistics")
     st.dataframe(df.describe())
 
-    st.subheader("Correlation Heatmap")
+    # --- NEW: Daily Sales Trends ---
+    st.subheader("Daily Sales Trends")
+    if date_col and amount_col:
+        try:
+            df_trend = df.copy()
+            if not pd.api.types.is_datetime64_any_dtype(df_trend[date_col]):
+                df_trend[date_col] = pd.to_datetime(df_trend[date_col])
+            
+            # Group by exact Date
+            daily_sales = df_trend.groupby(df_trend[date_col].dt.date)[amount_col].sum().reset_index()
+            
+            fig, ax = plt.subplots(figsize=(12, 5))
+            ax.plot(daily_sales[date_col], daily_sales[amount_col], color='#ff7f0e', linewidth=2)
+            ax.set_title("Total Revenue by Day", fontweight='bold')
+            ax.set_xlabel("Date")
+            ax.set_ylabel("Revenue")
+            ax.grid(True, linestyle='--', alpha=0.6)
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            st.pyplot(fig)
+        except Exception as e:
+            st.error(f"Error generating daily sales trend: {e}")
+    else:
+        st.info("Date and Amount columns are required for Daily Sales Trends.")
 
+    st.subheader("Correlation Heatmap")
     numeric_cols = df.select_dtypes(include="number").columns
     
     if len(numeric_cols) > 0:
