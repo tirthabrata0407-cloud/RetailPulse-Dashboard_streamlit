@@ -1,4 +1,4 @@
-# pip install streamlit prophet openpyxl scikit-learn matplotlib pandas numpy seaborn
+# pip install streamlit prophet openpyxl scikit-learn matplotlib pandas numpy
 # RetailPulse - Production Analytics Dashboard with Complete Feature Implementation
 # All 7 Features + Roadmap & Summary
 
@@ -6,7 +6,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from prophet import Prophet
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans, DBSCAN
@@ -123,6 +122,7 @@ def calculate_mape(y_true, y_pred):
 def load_data():
     try:
         if os.path.exists("merged_cleaned_retail_data.xlsx"):
+            # Using nrows as specified in the EDA requirement snippet
             df = pd.read_excel("merged_cleaned_retail_data.xlsx", engine="openpyxl", nrows=15000)
             return df
         else:
@@ -357,8 +357,27 @@ elif menu == "F02: Exploratory Data Analysis (EDA)":
     numeric_cols = df.select_dtypes(include="number").columns
     
     if len(numeric_cols) > 0:
+        corr_matrix = df[numeric_cols].corr()
+        
+        # Pure matplotlib implementation (No Seaborn needed)
         fig, ax = plt.subplots(figsize=(10, 8))
-        sns.heatmap(df[numeric_cols].corr(), annot=True, cmap="coolwarm", ax=ax)
+        cax = ax.imshow(corr_matrix, cmap="coolwarm", vmin=-1, vmax=1)
+        fig.colorbar(cax, ax=ax)
+        
+        # Set ticks and labels
+        ax.set_xticks(np.arange(len(corr_matrix.columns)))
+        ax.set_yticks(np.arange(len(corr_matrix.columns)))
+        ax.set_xticklabels(corr_matrix.columns, rotation=45, ha="right")
+        ax.set_yticklabels(corr_matrix.columns)
+        
+        # Loop over data dimensions and create text annotations
+        for i in range(len(corr_matrix.columns)):
+            for j in range(len(corr_matrix.columns)):
+                val = corr_matrix.iloc[i, j]
+                text_color = "white" if abs(val) > 0.5 else "black"
+                ax.text(j, i, f"{val:.2f}", ha="center", va="center", color=text_color)
+        
+        fig.tight_layout()
         st.pyplot(fig)
     else:
         st.warning("No numeric columns found to generate a correlation heatmap.")
