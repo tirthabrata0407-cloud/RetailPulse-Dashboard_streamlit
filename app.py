@@ -1,11 +1,13 @@
-# pip install streamlit prophet openpyxl scikit-learn matplotlib pandas numpy
+# pip install streamlit prophet openpyxl scikit-learn matplotlib pandas numpy seaborn
 # RetailPulse - Production Analytics Dashboard with Complete Feature Implementation
-# All 6 Features with Production Metrics & SLAs
+# All 7 Features + Roadmap & Summary
 
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.subplots
 import matplotlib.pyplot as plt
+import seaborn as sns
 from prophet import Prophet
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans, DBSCAN
@@ -20,7 +22,6 @@ import os
 import warnings
 from io import BytesIO
 from datetime import datetime, timedelta
-import json
 
 warnings.filterwarnings('ignore')
 
@@ -123,7 +124,8 @@ def calculate_mape(y_true, y_pred):
 def load_data():
     try:
         if os.path.exists("merged_cleaned_retail_data.xlsx"):
-            df = pd.read_excel("merged_cleaned_retail_data.xlsx")
+            # Using nrows as specified in the EDA requirement snippet
+            df = pd.read_excel("merged_cleaned_retail_data.xlsx", engine="openpyxl", nrows=15000)
             return df
         else:
             st.error("Error: Data file not found.")
@@ -147,17 +149,20 @@ menu = st.sidebar.radio(
     [
         "Dashboard Overview",
         "F01: Data Ingestion & Cleaning",
-        "F02: Customer Segmentation (RFM)",
-        "F03: Demand Forecasting",
-        "F04: Churn Prediction",
-        "F05: Inventory Optimization",
-        "F06: Interactive Analytics & Export"
+        "F02: Exploratory Data Analysis (EDA)",
+        "F03: Customer Segmentation (RFM)",
+        "F04: Demand Forecasting",
+        "F05: Churn Prediction",
+        "F06: Inventory Optimization",
+        "F07: Interactive Analytics & Export",
+        "Complete Project Roadmap",
+        "Project Summary"
     ],
     label_visibility="collapsed"
 )
 
 st.sidebar.markdown("---")
-st.sidebar.info("6 Production-Grade Features | SLA Monitoring | Real-Time Metrics")
+st.sidebar.info("7 Production-Grade Features | SLA Monitoring | Enterprise Ready")
 
 # Detect columns
 date_col = find_date_column(df)
@@ -199,30 +204,36 @@ if menu == "Dashboard Overview":
             "status": "Production"
         },
         "F02": {
+            "name": "Exploratory Data Analysis (EDA)",
+            "description": "Statistical summaries, distributions, and correlation tracking",
+            "metrics": ["Missing Values", "Distributions", "Heatmaps"],
+            "status": "Production"
+        },
+        "F03": {
             "name": "Customer Segmentation (RFM)",
             "description": "RFM + K-Means/DBSCAN with 3-8 segments",
             "metrics": ["Segments Created", "Silhouette Score", "Segment Distribution"],
             "status": "Production"
         },
-        "F03": {
+        "F04": {
             "name": "Demand Forecasting",
             "description": "Prophet time-series forecasting",
             "metrics": ["MAPE ≤ 12%", "30-day Predictions", "Confidence Intervals"],
             "status": "Production"
         },
-        "F04": {
+        "F05": {
             "name": "Churn Prediction",
             "description": "Random Forest classifier with explainability",
             "metrics": ["AUC-ROC ≥ 0.88", "Precision@top20% ≥ 0.75", "Feature Importance"],
             "status": "Production"
         },
-        "F05": {
+        "F06": {
             "name": "Inventory Optimization",
             "description": "EOQ-based reorder recommendations",
             "metrics": ["25-40% Stock Reduction", "Cost Optimization", "Reorder Points"],
             "status": "Production"
         },
-        "F06": {
+        "F07": {
             "name": "Interactive Analytics",
             "description": "Real-time dashboard with what-if analysis",
             "metrics": ["Dynamic Filters", "What-If Scenarios", "Exportable Reports"],
@@ -317,12 +328,49 @@ elif menu == "F01: Data Ingestion & Cleaning":
         st.write(f"- Customer Column: {customer_col if customer_col else 'Not Found'}")
         st.write(f"- Product Column: {product_col if product_col else 'Not Found'}")
 
+
 # =================================================================
-# F02: CUSTOMER SEGMENTATION (RFM)
+# F02: EXPLORATORY DATA ANALYSIS (EDA)
 # =================================================================
-elif menu == "F02: Customer Segmentation (RFM)":
+elif menu == "F02: Exploratory Data Analysis (EDA)":
     
-    st.markdown('<div class="section-header">F02: Customer Segmentation - RFM Analysis</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">EDA – Exploratory Data Analysis</div>', unsafe_allow_html=True)
+    
+    # Cast Stock Code to string if it exists in the dataset
+    if "Stock Code" in df.columns:
+        df["Stock Code"] = df["Stock Code"].astype(str)
+    elif "StockCode" in df.columns:
+        df["StockCode"] = df["StockCode"].astype(str)
+
+    st.subheader("Dataset Preview")
+    st.dataframe(df.head())
+
+    st.subheader("Dataset Shape")
+    st.write(df.shape)
+
+    st.subheader("Missing Values")
+    st.dataframe(df.isnull().sum())
+
+    st.subheader("Summary Statistics")
+    st.dataframe(df.describe())
+
+    st.subheader("Correlation Heatmap")
+
+    numeric_cols = df.select_dtypes(include="number").columns
+    
+    if len(numeric_cols) > 0:
+        fig, ax = plt.subplots(figsize=(10, 8))
+        sns.heatmap(df[numeric_cols].corr(), annot=True, cmap="coolwarm", ax=ax)
+        st.pyplot(fig)
+    else:
+        st.warning("No numeric columns found to generate a correlation heatmap.")
+
+# =================================================================
+# F03: CUSTOMER SEGMENTATION (RFM)
+# =================================================================
+elif menu == "F03: Customer Segmentation (RFM)":
+    
+    st.markdown('<div class="section-header">F03: Customer Segmentation - RFM Analysis</div>', unsafe_allow_html=True)
     
     if date_col and customer_col and amount_col:
         try:
@@ -427,11 +475,11 @@ elif menu == "F02: Customer Segmentation (RFM)":
         st.warning("Required columns: Date, Customer, and Amount")
 
 # =================================================================
-# F03: DEMAND FORECASTING
+# F04: DEMAND FORECASTING
 # =================================================================
-elif menu == "F03: Demand Forecasting":
+elif menu == "F04: Demand Forecasting":
     
-    st.markdown('<div class="section-header">F03: Demand Forecasting - Prophet Model</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">F04: Demand Forecasting - Prophet Model</div>', unsafe_allow_html=True)
     
     if date_col and amount_col:
         try:
@@ -558,11 +606,11 @@ elif menu == "F03: Demand Forecasting":
         st.warning("Date and Amount columns required")
 
 # =================================================================
-# F04: CHURN PREDICTION
+# F05: CHURN PREDICTION
 # =================================================================
-elif menu == "F04: Churn Prediction":
+elif menu == "F05: Churn Prediction":
     
-    st.markdown('<div class="section-header">F04: Customer Churn Prediction Model</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">F05: Customer Churn Prediction Model</div>', unsafe_allow_html=True)
     
     if customer_col and amount_col:
         try:
@@ -676,11 +724,11 @@ elif menu == "F04: Churn Prediction":
         st.warning("Customer and Amount columns required")
 
 # =================================================================
-# F05: INVENTORY OPTIMIZATION
+# F06: INVENTORY OPTIMIZATION
 # =================================================================
-elif menu == "F05: Inventory Optimization":
+elif menu == "F06: Inventory Optimization":
     
-    st.markdown('<div class="section-header">F05: Inventory Optimization - EOQ Analysis</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">F06: Inventory Optimization - EOQ Analysis</div>', unsafe_allow_html=True)
     
     if product_col and quantity_col and date_col and amount_col:
         try:
@@ -807,11 +855,11 @@ elif menu == "F05: Inventory Optimization":
         st.warning("Required columns: Product, Quantity, Date, Amount")
 
 # =================================================================
-# F06: INTERACTIVE ANALYTICS & EXPORT
+# F07: INTERACTIVE ANALYTICS & EXPORT
 # =================================================================
-elif menu == "F06: Interactive Analytics & Export":
+elif menu == "F07: Interactive Analytics & Export":
     
-    st.markdown('<div class="section-header">F06: Interactive Analytics & Report Generation</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">F07: Interactive Analytics & Report Generation</div>', unsafe_allow_html=True)
     
     st.subheader("Dynamic Filters")
     
@@ -964,5 +1012,61 @@ elif menu == "F06: Interactive Analytics & Export":
             )
             st.success("Report generated successfully!")
 
+# =================================================================
+# COMPLETE PROJECT ROADMAP
+# =================================================================
+elif menu == "Complete Project Roadmap":
+    st.markdown('<div class="section-header">Complete Project Roadmap</div>', unsafe_allow_html=True)
+    st.markdown("""
+    ### Phase 1: Data Architecture & Ingestion
+    * **Objective:** Establish a robust pipeline for cleaning and processing raw retail transactional data.
+    * **Actions:** Addressed missing values, removed duplicates, validated schemas, and standardized column formats dynamically.
+
+    ### Phase 2: Exploratory Data Analysis (EDA)
+    * **Objective:** Understand data distributions, detect anomalies, and uncover relationships.
+    * **Actions:** Analyzed dataset shapes, missing counts, descriptive statistics, and generated feature correlation heatmaps.
+
+    ### Phase 3: Customer Segmentation (Unsupervised Learning)
+    * **Objective:** Group customers based on purchasing behavior to enable targeted marketing.
+    * **Actions:** Applied RFM (Recency, Frequency, Monetary) modeling paired with user-selectable K-Means and DBSCAN clustering.
+
+    ### Phase 4: Demand Forecasting (Time Series)
+    * **Objective:** Predict future sales volume to optimize supply chain readiness.
+    * **Actions:** Deployed the Prophet algorithm to forecast 30-to-90 day revenue trends with visual confidence intervals.
+
+    ### Phase 5: Churn Prediction (Supervised Learning)
+    * **Objective:** Identify high-value customers at risk of abandoning the platform.
+    * **Actions:** Trained a Random Forest Classifier to detect at-risk profiles based on historical spending cadence.
+
+    ### Phase 6: Inventory Optimization (Prescriptive Analytics)
+    * **Objective:** Recommend specific stock reorder points to minimize holding and ordering costs.
+    * **Actions:** Implemented the Economic Order Quantity (EOQ) formula calculating safety stock and total inventory costs.
+
+    ### Phase 7: Deployment & Interactivity
+    * **Objective:** Democratize AI insights for business users.
+    * **Actions:** Built a Streamlit application featuring dynamic filters, what-if scenario analyses, and automated report exporting.
+    """)
+
+# =================================================================
+# PROJECT SUMMARY
+# =================================================================
+elif menu == "Project Summary":
+    st.markdown('<div class="section-header">Project Summary</div>', unsafe_allow_html=True)
+    st.markdown("""
+    ### RetailPulse: End-to-End Retail Intelligence
+    
+    **Overview:**
+    RetailPulse is an enterprise-grade analytics dashboard designed to transform raw retail transaction data into actionable business intelligence. By combining traditional statistical analysis with advanced machine learning algorithms, the platform provides decision-makers with a comprehensive view of their business operations.
+    
+    **Key Capabilities:**
+    1. **Data Quality Assurance:** Automated cleaning pipelines ensure all downstream models are fed reliable, high-quality data.
+    2. **Customer Intelligence:** RFM segmentation and predictive churn models identify which customers are driving revenue and which are at risk of leaving, enabling proactive retention strategies.
+    3. **Operational Efficiency:** Prophet-driven demand forecasting combined with Economic Order Quantity (EOQ) algorithms helps businesses reduce excess inventory costs while preventing stockouts.
+    4. **Strategic Planning:** Interactive "What-If" scenarios allow leaders to simulate the financial impact of price adjustments, market expansions, and customer growth in real-time.
+    
+    **Business Impact:**
+    By centralizing these insights into a single, interactive platform, RetailPulse reduces the time required for data analysis from days to seconds. It empowers retail managers to optimize inventory costs, increase customer lifetime value, and confidently project future revenue streams.
+    """)
+
 st.markdown("---")
-st.markdown("**RetailPulse v2.0** | 6 Production Features | SLA Monitoring | Enterprise Ready")
+st.markdown("**RetailPulse v2.0** | 7 Production Features | SLA Monitoring | Enterprise Ready")
