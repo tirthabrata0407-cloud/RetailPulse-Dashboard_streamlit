@@ -8,6 +8,21 @@ The platform combines Data Analytics, Machine Learning, Visualization, and Deplo
 
 ---
 
+## 🌐 Live Deployment
+
+🔗 **Streamlit App**
+```
+[ADD YOUR STREAMLIT APP LINK HERE]
+https://your-app-name.streamlit.app/
+```
+
+🔗 **GitHub Repository**
+```
+https://github.com/tirthabrata0407-cloud/streamlit_template
+```
+
+---
+
 ## ✨ Features
 
 ✅ **Exploratory Data Analysis (EDA)** - Statistical summaries, distributions, and correlation tracking
