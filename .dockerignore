@@ -1,0 +1,14 @@
+.dockerignore
+*.pyc
+__pycache__
+.pytest_cache
+.git
+.gitignore
+*.egg-info
+.venv
+venv
+.env
+.DS_Store
+outputs/
+reports/
+.streamlit/secrets.toml
