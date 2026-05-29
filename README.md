@@ -12,8 +12,7 @@ The platform combines Data Analytics, Machine Learning, Visualization, and Deplo
 
 🔗 **Streamlit App**
 ```
-[ADD YOUR STREAMLIT APP LINK HERE]
-https://your-app-name.streamlit.app/
+https://your-app-name.streamlit.app/](https://apptemplate-gf5qmnrm2ppbqizxk6ywof.streamlit.app/)
 ```
 
 🔗 **GitHub Repository**
