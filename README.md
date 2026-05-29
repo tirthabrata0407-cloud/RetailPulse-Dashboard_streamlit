@@ -178,7 +178,7 @@ docker ps
 curl http://localhost:8501/_stcore/health
 ```
 
-### Docker Compose (Optional)
+### Docker Compose
 Create a `docker-compose.yml` file:
 ```yaml
 version: '3.8'
@@ -197,32 +197,6 @@ services:
 Then run:
 ```bash
 docker-compose up
-```
-
----
-
-## 🚀 Streamlit Cloud Deployment
-
-### Step 1: Prepare Repository
-- Ensure `requirements.txt` is in the root directory (✅ Done)
-- Verify `merged_cleaned_retail_data.xlsx` is committed
-- Ensure `Dockerfile` and `.streamlit/config.toml` are present (✅ Done)
-- Commit all changes to GitHub
-
-### Step 2: Deploy on Streamlit Cloud
-1. Go to [https://streamlit.io/cloud](https://streamlit.io/cloud)
-2. Sign in with your GitHub account
-3. Click "New app"
-4. Select repository: `tirthabrata0407-cloud/streamlit_template`
-5. Select branch: `main`
-6. Set main file path: `app.py`
-7. Click "Deploy"
-
-### Step 3: Update README
-Replace the placeholder link with your deployed app URL:
-```markdown
-🔗 Streamlit App
-https://your-retailpulse-app-name.streamlit.app/
 ```
 
 ---
@@ -305,13 +279,6 @@ The CI/CD pipeline runs automatically on:
 9. **Project Roadmap** - Implementation phases
 10. **Project Summary** - Executive overview
 
-### **Key Features**
-
-- **Multi-Select Filters:** Filter by products, countries, and date ranges
-- **What-If Scenarios:** Simulate price adjustments, volume increases, customer growth
-- **Excel Export:** Download comprehensive reports with multiple sheets
-- **Real-Time Updates:** All metrics calculated on-the-fly
-
 ---
 
 ## 📈 Data Requirements
@@ -393,20 +360,6 @@ The application expects an Excel file (`merged_cleaned_retail_data.xlsx`) with t
 🚀 Advanced monitoring with Prometheus & Grafana
 
 ---
-
-## 📊 Dashboard Screenshots & Modules
-
-The application provides a comprehensive interface with:
-
-- **7 Production-Grade Features**
-- **SLA Monitoring** for all critical metrics
-- **Interactive Visualizations** using Matplotlib
-- **Dynamic Report Generation** with Excel export
-- **What-If Scenario Analysis**
-- **Enterprise-Ready Monitoring**
-- **Docker & Container Support**
-- **Automated CI/CD Pipeline**
-
 ---
 
 ## 📝 Requirements
@@ -459,75 +412,6 @@ backgroundColor = "#FFFFFF"
 
 ---
 
-## 🎯 Business Impact
-
-By centralizing insights into a single, interactive platform, RetailPulse:
-
-✅ Reduces analysis time from days to seconds
-
-✅ Identifies high-value customers at risk of churn
-
-✅ Optimizes inventory costs by 25-40%
-
-✅ Forecasts demand with ≤12% error margin
-
-✅ Enables data-driven strategic decisions
-
-✅ Provides real-time business intelligence
-
-✅ Supports enterprise-grade deployment
-
-✅ Automates quality assurance through CI/CD
-
-✅ Enables reproducible builds with Docker
-
----
-
-## 🚀 Getting Started
-
-### Quick Start (3 Steps)
-
-1. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Prepare your data** (ensure `merged_cleaned_retail_data.xlsx` is in root folder)
-
-3. **Run the application**
-   ```bash
-   streamlit run app.py
-   ```
-
-### Docker Quick Start
-
-```bash
-# Build and run in one command
-docker build -t retailpulse . && docker run -p 8501:8501 retailpulse
-```
-
-### With Docker Compose
-
-```bash
-# Start all services
-docker-compose up
-
-# Stop services
-docker-compose down
-```
-
----
-
-## 📞 Support & Documentation
-
-For questions or issues:
-- Review the **Project Summary** tab in the dashboard
-- Check the **Complete Project Roadmap** for implementation details
-- Refer to individual feature documentation within each module
-- Check GitHub Actions for CI/CD status: https://github.com/tirthabrata0407-cloud/streamlit_template/actions
-- Review Docker logs: `docker logs <container-id>`
-- Check Streamlit Cloud logs (if deployed)
-
 ---
 
 ## ✅ Project Status
@@ -554,50 +438,15 @@ For questions or issues:
 
 ---
 
-## 📄 License
-
-This project is open-source and available for educational and commercial use.
-
 ---
 
 ## 👨‍💻 Author
 
 **Tirtha Brata Das**
+Data Science and Machine Learning enthusiast with expertise in building end-to-end analytics solutions and production-grade applications.
 
 - 📧 **Email:** tirthabrata0407@gmail.com
 - 🔗 **GitHub:** https://github.com/tirthabrata0407-cloud
-- 💼 **LinkedIn:** [Add your LinkedIn URL]
-- 🌐 **Portfolio:** [Add your portfolio URL]
-- 💡 **Project:** RetailPulse - AI-Powered Retail Analytics Platform
-
-### About the Author
-
-Data Science and Machine Learning enthusiast with expertise in building end-to-end analytics solutions and production-grade applications. Specialized in:
-
-- 🤖 **Machine Learning & Predictive Analytics** - Building ML models from data exploration to deployment
-- 📊 **Data Engineering & ETL Pipelines** - Designing robust data pipelines
-- 📈 **Interactive Dashboard Development** - Creating engaging Streamlit applications
-- 🚀 **Production-Grade Deployment** - Docker, CI/CD, and DevOps best practices
-- 🏗️ **Enterprise Solutions Architecture** - Scalable and maintainable systems
-
-### Key Achievements
-
-- ✅ Developed 7 production-grade ML features in a single dashboard
-- ✅ Implemented SLA monitoring with 6 critical metrics
-- ✅ Automated CI/CD pipeline with GitHub Actions
-- ✅ Docker containerization with health checks
-- ✅ Streamlit deployment on cloud infrastructure
-
-### Connect & Collaborate
-
-Feel free to reach out for:
-- 🤝 Project collaborations
-- 💬 Technical discussions
-- 📚 Data science insights
-- 🎯 Career opportunities
-- 📧 General inquiries
-
----
 
 **RetailPulse v2.0** | 7 Production Features | SLA Monitoring | Enterprise Ready | Docker & CI/CD Enabled
 
