@@ -27,7 +27,7 @@ warnings.filterwarnings('ignore')
 # PAGE CONFIGURATION
 # =================================================================
 st.set_page_config(
-    page_title="RetailPulse - Production Analytics",
+    page_title="RetailPulse - AI-powered retail analytics platform",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -42,7 +42,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">RetailPulse - Enterprise Analytics Platform</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">RetailPulse - AI-powered retail analytics platform</div>', unsafe_allow_html=True)
 st.markdown("*Production-grade retail analytics with ML-powered forecasting and optimization*")
 st.markdown("---")
 
