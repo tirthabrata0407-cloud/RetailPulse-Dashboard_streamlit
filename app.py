@@ -139,8 +139,8 @@ if df is None:
 # =================================================================
 # SIDEBAR NAVIGATION
 # =================================================================
-st.sidebar.title("Navigation")
-st.sidebar.markdown("---")
+st.sidebar.title("RetailPulse Modules")
+st.sidebar.markdown("Select to view")
 
 menu = st.sidebar.radio(
     "Select Module",
