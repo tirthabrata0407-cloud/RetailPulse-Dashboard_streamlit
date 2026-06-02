@@ -15,9 +15,7 @@ The platform combines Data Analytics, Machine Learning, Visualization, and Deplo
 https://apptemplate-gf5qmnrm2ppbqizxk6ywof.streamlit.app/
 
 🔗 **GitHub Repository**
-```
 https://github.com/tirthabrata0407-cloud/streamlit_template
-```
 
 ---
 
