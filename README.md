@@ -56,25 +56,6 @@ https://github.com/tirthabrata0407-cloud/streamlit_template
 | **Data Format** | Excel (openpyxl) |
 
 ---
-
-## 🏗️ High-Level Architecture & Data Flow
-
-![RetailPulse – AI Powered Retail Analytics Platform - High Level Architecture & Data Flow](https://user-images.githubusercontent.com/placeholder/retailpulse-architecture.png)
-
-**Architecture Overview:**
-
-The RetailPulse platform follows a comprehensive data pipeline architecture with 7 key layers:
-
-1. **Data Sources** - Multi-channel data collection (Sales Data, Customer Data, Inventory Data, Transaction Data, External Data)
-2. **Data Ingestion & Storage** - ETL Pipeline with Data Validation & Quality Checks → Cleaned & Processed Data → Data Storage (Data Lake/DB)
-3. **Data Processing & Feature Engineering** - Data Cleaning & Transformation → Feature Engineering (RFM, Aggregations, Time Features) → Exploratory Data Analysis (EDA) → Final Feature Set
-4. **Machine Learning & AI Models** - Customer Segmentation (K-Means, DBSCAN) → Churn Prediction (XGBoost Classifier, SHAP Explainability) → Sales Forecasting (Prophet Model, LSTM Model, Hybrid) → Inventory Optimization (Demand Based Planning, Stock Level Optimization)
-5. **Application Layer (Streamlit Dashboard)** - EDA Dashboard, Sales Analysis, Customer Segmentation, Churn Analysis, Inventory Insights, Sales Forecasting, AI Business Insights, Project Summary
-6. **Model Monitoring & MLOps** - Performance Monitoring, Drift Detection (Evidently AI), Retraining Pipeline (Airflow), Experiment Tracking (MLflow)
-7. **Deployment & Infrastructure** - Docker Containerization → Kubernetes Orchestration → GitHub Actions CI/CD → Cloud Deployment (AWS/GCP) → Prometheus Monitoring → Grafana Dashboards → Security & Access Management
-
-**Business Impact:** Better Decision Making ✓ | Increased Revenue ✓ | Customer Retention ✓ | Optimized Inventory ✓ | Accurate Forecasting ✓ | Cost Reduction ✓
-
 ---
 
 ## 📁 Project Structure
