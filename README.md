@@ -2,7 +2,7 @@
 
 🚀 **Project Overview**
 
-RetailPulse is an AI-powered retail analytics platform developed using Python, Streamlit, and Machine Learning techniques. The project helps businesses analyze customer behavior, monitor sales performance, identify churn risks, gain inventory insights, and forecast future sales through an interactive dashboard.
+RetailPulse is an AI-powered retail analytics platform developed using Python, Streamlit, and Machine Learning techniques. The project helps businesses analyze customer behavior, monitor sales performance, and optimize inventory using advanced ML models. 
 
 The platform combines Data Analytics, Machine Learning, Visualization, and Deployment concepts into a single end-to-end retail intelligence solution.
 
@@ -54,6 +54,26 @@ https://github.com/tirthabrata0407-cloud/streamlit_template
 | **Deployment** | Streamlit Cloud, Docker |
 | **CI/CD** | GitHub Actions |
 | **Data Format** | Excel (openpyxl) |
+
+---
+
+## 🏗️ High-Level Architecture & Data Flow
+
+![RetailPulse – AI Powered Retail Analytics Platform - High Level Architecture & Data Flow](https://user-images.githubusercontent.com/placeholder/retailpulse-architecture.png)
+
+**Architecture Overview:**
+
+The RetailPulse platform follows a comprehensive data pipeline architecture with 7 key layers:
+
+1. **Data Sources** - Multi-channel data collection (Sales Data, Customer Data, Inventory Data, Transaction Data, External Data)
+2. **Data Ingestion & Storage** - ETL Pipeline with Data Validation & Quality Checks → Cleaned & Processed Data → Data Storage (Data Lake/DB)
+3. **Data Processing & Feature Engineering** - Data Cleaning & Transformation → Feature Engineering (RFM, Aggregations, Time Features) → Exploratory Data Analysis (EDA) → Final Feature Set
+4. **Machine Learning & AI Models** - Customer Segmentation (K-Means, DBSCAN) → Churn Prediction (XGBoost Classifier, SHAP Explainability) → Sales Forecasting (Prophet Model, LSTM Model, Hybrid) → Inventory Optimization (Demand Based Planning, Stock Level Optimization)
+5. **Application Layer (Streamlit Dashboard)** - EDA Dashboard, Sales Analysis, Customer Segmentation, Churn Analysis, Inventory Insights, Sales Forecasting, AI Business Insights, Project Summary
+6. **Model Monitoring & MLOps** - Performance Monitoring, Drift Detection (Evidently AI), Retraining Pipeline (Airflow), Experiment Tracking (MLflow)
+7. **Deployment & Infrastructure** - Docker Containerization → Kubernetes Orchestration → GitHub Actions CI/CD → Cloud Deployment (AWS/GCP) → Prometheus Monitoring → Grafana Dashboards → Security & Access Management
+
+**Business Impact:** Better Decision Making ✓ | Increased Revenue ✓ | Customer Retention ✓ | Optimized Inventory ✓ | Accurate Forecasting ✓ | Cost Reduction ✓
 
 ---
 
@@ -357,7 +377,6 @@ The application expects an Excel file (`merged_cleaned_retail_data.xlsx`) with t
 🚀 Advanced monitoring with Prometheus & Grafana
 
 ---
----
 
 ## 📝 Requirements
 
@@ -409,8 +428,6 @@ backgroundColor = "#FFFFFF"
 
 ---
 
----
-
 ## ✅ Project Status
 
 ✅ Completed End-to-End Retail Analytics Platform
@@ -435,8 +452,6 @@ backgroundColor = "#FFFFFF"
 
 ---
 
----
-
 ## 👨‍💻 Author
 
 **Tirtha Brata Das**
@@ -449,5 +464,5 @@ Data Science and Machine Learning enthusiast with expertise in building end-to-e
 **RetailPulse v2.0** | 7 Production Features | SLA Monitoring | Enterprise Ready | Docker & CI/CD Enabled
 
 *Platform Status: Active & Maintained*
-*Last Updated: 2026-05-29*
+*Last Updated: 2026-06-12*
 *Version: 2.0 (Production)*
