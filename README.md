@@ -2,9 +2,13 @@
 
 🚀 **Project Overview**
 
-RetailPulse is an AI-powered retail analytics platform developed using Python, Streamlit, and Machine Learning techniques. The project helps businesses analyze customer behavior, monitor sales performance, and optimize inventory using advanced ML models. 
+RetailPulse is an AI-powered retail analytics platform developed using Python, Streamlit, and Machine Learning techniques. The project helps businesses analyze customer behavior, monitor sales performance, and make data-driven decisions.
 
 The platform combines Data Analytics, Machine Learning, Visualization, and Deployment concepts into a single end-to-end retail intelligence solution.
+
+<div align="center">
+  <img src="project_overview.png" alt="RetailPulse Dashboard Overview" width="100%" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+</div>
 
 ---
 
@@ -445,5 +449,5 @@ Data Science and Machine Learning enthusiast with expertise in building end-to-e
 **RetailPulse v2.0** | 7 Production Features | SLA Monitoring | Enterprise Ready | Docker & CI/CD Enabled
 
 *Platform Status: Active & Maintained*
-*Last Updated: 2026-06-12*
+*Last Updated: 2026-06-16*
 *Version: 2.0 (Production)*
